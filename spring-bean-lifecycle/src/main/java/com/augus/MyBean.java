@@ -1,17 +1,14 @@
 package com.augus;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyBean implements BeanNameAware, BeanFactoryAware, ApplicationContextAware, InitializingBean, DisposableBean {
+public class MyBean implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, ApplicationContextAware, InitializingBean, DisposableBean {
 
     private String beanName;
 
@@ -28,13 +25,22 @@ public class MyBean implements BeanNameAware, BeanFactoryAware, ApplicationConte
         System.out.println("2. 设置Bean的名称：" + name);
     }
 
+    private BeanFactory beanFactory;
     @Override
     public void setBeanFactory(org.springframework.beans.factory.BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
         System.out.println("3. BeanFactoryAware接口的setBeanFactory方法调用");
     }
 
+    public void getAnotherBean() {
+        MyBean2 otherBean = (MyBean2) beanFactory.getBean(MyBean2.class);
+        System.out.println("otherBean = " + otherBean.name);
+    }
+
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("applicationContext = " + applicationContext.getApplicationName());
         System.out.println("4. ApplicationContextAware接口的setApplicationContext方法调用");
     }
 
@@ -55,4 +61,8 @@ public class MyBean implements BeanNameAware, BeanFactoryAware, ApplicationConte
     public void customDestroy() {
         System.out.println("8. 自定义destroy-method调用");
     }
-}
+
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("2.5. BeanClassLoaderAware接口的setBeanClassLoader方法调用");
+    }}
