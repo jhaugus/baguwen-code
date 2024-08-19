@@ -12,6 +12,8 @@
         <module>spring-bean-lifecycle</module>
         <module>autowired-resource-annotation</module>
         <module>dynamic-proxy</module>
+        <module>reflect</module>
+        <module>unsafe</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

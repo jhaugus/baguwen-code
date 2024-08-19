@@ -68,6 +68,16 @@ public class test {
 ## 手写动态代理
 dynamic-proxy
 
+## 反射基本使用、反射破坏单例模式
+reflect 
+
+ 反射让我们的代码更加灵活、为框架提供开箱即用的功能提供了便利。
+
+但是也有一些安全和效率问题。例如，反射忽略泛型参数的安全检查，性能也较低。
+
+
+
+
 
 ## Bean的生命周期
 
@@ -161,3 +171,5 @@ BeanPostProcessor接口实现postProcessorBeforeInitialization和postProcessorAf
 
 
 
+## unsafe详解
+unsafe
